@@ -3,156 +3,210 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dhamma FM Radio</title>
+<title>Dhamma FM | Upanna Radio</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Myanmar:wght@400;600&family=Zen+Dots&display=swap" rel="stylesheet">
 <style>
-  /* --- Global --- */
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  * {box-sizing: border-box; margin:0; padding:0;}
   body {
     font-family: "Noto Sans Myanmar", sans-serif;
-    background: radial-gradient(circle at top, #1a1a1a, #000);
+    background: radial-gradient(circle at top, #0a0a0a 0%, #000 100%);
     min-height: 100vh;
     color: #fff;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     text-align: center;
-    overflow: hidden;
+    padding: 40px 20px 20px;
   }
 
-  /* --- Animated background glow --- */
+  /* Glowing background animation */
   .glow {
-    position: absolute;
-    width: 400px;
-    height: 400px;
-    background: radial-gradient(circle, rgba(255,215,130,0.25), transparent 70%);
-    filter: blur(100px);
-    animation: pulse 8s ease-in-out infinite alternate;
+    position: fixed;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    filter: blur(140px);
+    opacity: 0.4;
+    z-index: 0;
   }
-
   .glow:nth-child(1) {
-    top: -50px; left: -50px;
-    background: radial-gradient(circle, rgba(255, 235, 59, 0.25), transparent 70%);
+    top: -200px; left: -150px;
+    background: radial-gradient(circle, rgba(255,235,59,0.3), transparent 70%);
+    animation: pulse1 12s ease-in-out infinite alternate;
   }
   .glow:nth-child(2) {
-    bottom: -50px; right: -50px;
-    background: radial-gradient(circle, rgba(255, 152, 0, 0.25), transparent 70%);
+    bottom: -200px; right: -150px;
+    background: radial-gradient(circle, rgba(255,152,0,0.25), transparent 70%);
+    animation: pulse2 10s ease-in-out infinite alternate;
   }
+  @keyframes pulse1 { from{transform:scale(1);} to{transform:scale(1.3);} }
+  @keyframes pulse2 { from{transform:scale(1.3);} to{transform:scale(1);} }
 
-  @keyframes pulse {
-    from { transform: scale(1) rotate(0deg); opacity: 0.7; }
-    to { transform: scale(1.3) rotate(30deg); opacity: 1; }
-  }
-
-  /* --- Player box --- */
+  /* Player box */
   .player-box {
-    position: relative;
-    z-index: 5;
-    background: rgba(255,255,255,0.05);
-    backdrop-filter: blur(10px);
-    border-radius: 20px;
+    z-index: 2;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(12px);
+    border-radius: 25px;
+    box-shadow: 0 0 40px rgba(255,204,102,0.15);
     padding: 40px 30px;
-    box-shadow: 0 0 25px rgba(255, 204, 102, 0.2);
     max-width: 420px;
-    width: 90%;
-    animation: fadeIn 2s ease;
+    width: 100%;
+    animation: fadeIn 1.5s ease;
   }
 
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(20px);} to{opacity:1;transform:translateY(0);} }
 
   h1 {
     font-family: 'Zen Dots', sans-serif;
-    font-size: 2.2em;
+    font-size: 2.2rem;
     color: #ffcc66;
-    letter-spacing: 1px;
-    text-shadow: 0 0 8px rgba(255,204,102,0.7);
-    margin-bottom: 0.4em;
+    text-shadow: 0 0 12px rgba(255,204,102,0.6);
   }
-
   h2 {
+    color: #ccc;
     font-weight: 400;
-    color: #ddd;
-    margin-bottom: 1.5em;
+    margin: 6px 0 20px;
   }
 
-  /* --- Audio --- */
-  audio {
-    width: 100%;
-    border-radius: 10px;
-    outline: none;
-    margin-bottom: 10px;
-  }
-
-  /* --- Animated ring --- */
+  /* Ring animation */
   .ring {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: 160px;
-    height: 160px;
+    margin: 0 auto 20px;
+    width: 150px; height: 150px;
     border-radius: 50%;
-    border: 3px solid rgba(255,204,102,0.5);
-    animation: spin 6s linear infinite;
+    border: 3px solid rgba(255,204,102,0.3);
+    display:flex;align-items:center;justify-content:center;
+    animation: spin 8s linear infinite;
   }
-
   .ring::after {
     content: "";
-    position: absolute;
-    top: -3px; left: -3px;
-    right: -3px; bottom: -3px;
-    border-radius: 50%;
-    border: 3px solid transparent;
-    border-top-color: #ffcc66;
+    width: 150px; height: 150px;
+    position:absolute;
+    border-radius:50%;
+    border:3px solid transparent;
+    border-top-color:#ffcc66;
     animation: spin 3s linear infinite reverse;
   }
+  @keyframes spin {from{transform:rotate(0);} to{transform:rotate(360deg);} }
 
-  @keyframes spin {
-    0% { transform: translate(-50%, -50%) rotate(0deg); }
-    100% { transform: translate(-50%, -50%) rotate(360deg); }
+  /* Controls */
+  .controls {
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    justify-content:center;
+    margin-top:15px;
+  }
+  button {
+    background: linear-gradient(180deg,#ffcc66,#f0b23a);
+    border:none;
+    color:#000;
+    padding:10px 16px;
+    border-radius:10px;
+    font-weight:700;
+    cursor:pointer;
+    transition: all .2s ease;
+  }
+  button:hover { transform: scale(1.05); }
+  button.ghost {
+    background: rgba(255,255,255,0.1);
+    color:#fff;
+    border:1px solid rgba(255,255,255,0.08);
+  }
+  input[type=range]{width:120px;}
+
+  .status {
+    color:#ffeaaf;
+    font-size:0.9rem;
+    margin-top:10px;
   }
 
-  /* --- Footer --- */
   footer {
-    position: absolute;
-    bottom: 20px;
-    font-size: 0.85em;
-    color: #aaa;
+    z-index:2;
+    text-align:center;
+    font-size:0.9rem;
+    color:#bbb;
+    margin-top:20px;
   }
   footer a {
-    color: #ffcc66;
-    text-decoration: none;
+    color:#ffcc66;
+    text-decoration:none;
   }
-  footer a:hover {
-    text-decoration: underline;
+  footer a:hover { text-decoration:underline; }
+
+  @media(max-width:480px){
+    h1{font-size:1.8rem;}
+    .player-box{padding:30px 20px;}
   }
 </style>
 </head>
 <body>
 
-  <!-- Animated glows -->
-  <div class="glow"></div>
-  <div class="glow"></div>
+<div class="glow"></div>
+<div class="glow"></div>
 
-  <!-- Player -->
-  <div class="player-box">
-    <div class="ring"></div>
-    <h1>🪷 Dhamma FM</h1>
-    <h2>Myanmar Online Radio</h2>
+<div class="player-box">
+  <div class="ring"></div>
+  <h1>🪷 Dhamma FM</h1>
+  <h2>Myanmar Online Radio</h2>
 
-    <audio controls autoplay>
-      <source src="http://upanna.on-air.fm/free" type="audio/mpeg">
-      သင့် browser မှာ audio player မအလုပ်ဖြစ်ပါ။
-    </audio>
+  <audio id="player" preload="none" crossorigin="anonymous">
+    <source src="http://upanna.on-air.fm/free" type="audio/mpeg">
+    သင့် browser မှာ audio မပြသနိုင်ပါ။
+  </audio>
+
+  <div class="controls">
+    <button id="playBtn">Play ▶</button>
+    <button id="pauseBtn" class="ghost">Pause ⏸</button>
+    <label><input id="vol" type="range" min="0" max="1" step="0.01" value="0.8"></label>
+    <button id="reconnectBtn" class="ghost">Reconnect 🔁</button>
   </div>
 
-  <footer>
-    © 2025 <a href="https://www.upanna.com">Upanna</a> | Dhamma FM Radio
-  </footer>
+  <div class="status" id="status">Status: idle</div>
+</div>
+
+<footer>
+  © 2025 <a href="https://upanna.com" target="_blank">Upanna</a> | Dhamma FM Radio
+</footer>
+
+<script>
+  const player = document.getElementById('player');
+  const statusEl = document.getElementById('status');
+  const vol = document.getElementById('vol');
+  const playBtn = document.getElementById('playBtn');
+  const pauseBtn = document.getElementById('pauseBtn');
+  const reconnectBtn = document.getElementById('reconnectBtn');
+
+  function setStatus(txt){ statusEl.textContent = 'Status: ' + txt; }
+
+  player.volume = vol.value;
+  vol.addEventListener('input',()=>player.volume=vol.value);
+
+  async function tryAutoplay(){
+    try {
+      await player.play();
+      setStatus('playing (autoplay)');
+    } catch {
+      setStatus('autoplay blocked — press Play');
+    }
+  }
+
+  playBtn.onclick = async ()=>{
+    try{ await player.play(); setStatus('playing'); }catch{ setStatus('failed to play'); }
+  };
+  pauseBtn.onclick = ()=>{ player.pause(); setStatus('paused'); };
+  reconnectBtn.onclick = ()=>{
+    player.src = 'http://upanna.on-air.fm/free?reload=' + Date.now();
+    player.load(); player.play();
+    setStatus('reconnecting...');
+  };
+
+  player.addEventListener('playing',()=>setStatus('playing'));
+  player.addEventListener('pause',()=>setStatus('paused'));
+  player.addEventListener('error',()=>setStatus('error loading stream'));
+
+  window.addEventListener('load',()=>tryAutoplay());
+</script>
+
 </body>
 </html>
-
-
