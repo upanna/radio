@@ -3,78 +3,90 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dhamma FM Radio - Live & AutoDJ</title>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Myanmar:wght@400;600&family=Zen+Dots&display=swap" rel="stylesheet">
+  <title>Dhamma FM Radio - Live Stream</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Myanmar:wght@500&display=swap" rel="stylesheet">
   <style>
     body {
-      margin: 0;
       font-family: 'Noto Sans Myanmar', sans-serif;
-      background: linear-gradient(180deg, #f8fafc, #e2e8f0);
-      color: #222;
+      background: linear-gradient(180deg, #e6f0ff, #ffffff);
       text-align: center;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      padding-top: 5%;
+      margin: 0;
       height: 100vh;
     }
     h1 {
-      font-family: 'Zen Dots', sans-serif;
       font-size: 2em;
-      margin-bottom: 0.3em;
-      color: #111;
+      color: #004080;
+      margin-bottom: 0.2em;
     }
     p {
-      font-size: 1.1em;
+      color: #333;
       margin-bottom: 1em;
     }
-    audio {
-      width: 320px;
-      outline: none;
-      margin-bottom: 10px;
+    #player {
+      width: 90%;
+      max-width: 360px;
+      height: 60px;
+    }
+    button {
+      background: #0078d7;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #005ea6;
     }
     #status {
+      margin-top: 10px;
       font-weight: bold;
-      color: #555;
-    }
-    footer {
-      position: absolute;
-      bottom: 10px;
-      font-size: 0.9em;
-      color: #777;
+      color: #444;
     }
   </style>
 </head>
 <body>
 
-  <h1>Dhamma FM Radio</h1>
-  <p>Live Stream (AutoDJ)</p>
+  <h1>📻 Dhamma FM Radio</h1>
+  <p>Streaming from upanna.on-air.fm/free</p>
 
-  <audio id="radioPlayer" controls autoplay>
+  <audio id="player" controls autoplay>
     <source src="http://upanna.on-air.fm/free" type="audio/mpeg">
     သင့် browser မှ audio player ကို မထောက်ပံ့ပါ။
   </audio>
 
   <div id="status">🔄 အသံချိတ်ဆက်နေပါသည်...</div>
 
-  <footer>Streaming from upanna.on-air.fm/free | © 2025 Dhamma FM Radio</footer>
+  <button onclick="reconnect()">Reconnect</button>
 
   <script>
-    const player = document.getElementById('radioPlayer');
+    const player = document.getElementById('player');
     const status = document.getElementById('status');
 
-    player.addEventListener('playing', () => {
-      status.textContent = '🎶 အသံထွက်နေပါပြီ...';
-      status.style.color = 'green';
-    });
-    player.addEventListener('pause', () => {
-      status.textContent = '⏸ ပေါက်ကွဲထားပါသည်။';
-      status.style.color = 'orange';
-    });
-    player.addEventListener('error', () => {
-      status.textContent = '⚠️ Stream မချိတ်ဆက်နိုင်ပါ။';
-      status.style.color = 'red';
-    });
+    function updateStatus(text, color) {
+      status.textContent = text;
+      status.style.color = color;
+    }
+
+    player.addEventListener('playing', () => updateStatus('🎶 အသံထွက်နေပါပြီ...', 'green'));
+    player.addEventListener('pause', () => updateStatus('⏸ အသံပိတ်ထားပါသည်။', 'orange'));
+    player.addEventListener('error', () => updateStatus('⚠️ Stream မချိတ်ဆက်နိုင်ပါ။', 'red'));
+    player.addEventListener('waiting', () => updateStatus('⏳ ခဏစောင့်ပါ...', '#555'));
+
+    function reconnect() {
+      const src = "http://upanna.on-air.fm/free?" + new Date().getTime();
+      player.src = src;
+      player.play();
+      updateStatus('🔁 ပြန်ချိတ်ဆက်နေပါသည်...', '#004080');
+    }
+
+    // Auto reconnect every 60 seconds if stopped
+    setInterval(() => {
+      if (player.paused || player.readyState < 2) reconnect();
+    }, 60000);
   </script>
 
 </body>
