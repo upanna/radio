@@ -3,37 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dhamma FM Radio - AutoDJ</title>
+  <title>Dhamma FM Radio - Live & AutoDJ</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Myanmar:wght@400;600&family=Zen+Dots&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
       font-family: 'Noto Sans Myanmar', sans-serif;
-      background: linear-gradient(180deg, #f5f7fa, #c3cfe2);
-      color: #333;
+      background: linear-gradient(180deg, #f8fafc, #e2e8f0);
+      color: #222;
+      text-align: center;
       display: flex;
       flex-direction: column;
-      align-items: center;
       justify-content: center;
+      align-items: center;
       height: 100vh;
-      text-align: center;
     }
     h1 {
       font-family: 'Zen Dots', sans-serif;
       font-size: 2em;
-      margin-bottom: 10px;
-      color: #222;
+      margin-bottom: 0.3em;
+      color: #111;
     }
     p {
       font-size: 1.1em;
-      margin-bottom: 20px;
+      margin-bottom: 1em;
     }
     audio {
-      width: 300px;
+      width: 320px;
       outline: none;
+      margin-bottom: 10px;
     }
-    .status {
-      margin-top: 15px;
+    #status {
       font-weight: bold;
       color: #555;
     }
@@ -48,16 +48,16 @@
 <body>
 
   <h1>Dhamma FM Radio</h1>
-  <p>AutoDJ Live Streaming</p>
+  <p>Live Stream (AutoDJ)</p>
 
   <audio id="radioPlayer" controls autoplay>
-    <source src="http://s37.myradiostream.com:16828/" type="audio/mpeg">
+    <source src="http://upanna.on-air.fm/free" type="audio/mpeg">
     သင့် browser မှ audio player ကို မထောက်ပံ့ပါ။
   </audio>
 
-  <div id="status" class="status">🔄 အသံချိတ်ဆက်နေပါသည်...</div>
+  <div id="status">🔄 အသံချိတ်ဆက်နေပါသည်...</div>
 
-  <footer>Streaming from s37.myradiostream.com:16828 | © 2025 Dhamma FM</footer>
+  <footer>Streaming from upanna.on-air.fm/free | © 2025 Dhamma FM Radio</footer>
 
   <script>
     const player = document.getElementById('radioPlayer');
@@ -68,7 +68,7 @@
       status.style.color = 'green';
     });
     player.addEventListener('pause', () => {
-      status.textContent = '⏸ အားနည်းနေပါသည်။';
+      status.textContent = '⏸ ပေါက်ကွဲထားပါသည်။';
       status.style.color = 'orange';
     });
     player.addEventListener('error', () => {
