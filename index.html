@@ -1,77 +1,102 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="my">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dhamma FM Radio</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Myanmar:wght@400;700&family=Zen+Dots&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --main-color: #f2b705;
-    --bg-dark: #0b0b0b;
-    --bg-card: #1a1a1a;
-  }
-  body {
-    margin: 0;
-    font-family: "Noto Sans Myanmar", sans-serif;
-    background: var(--bg-dark);
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  .player {
-    background: var(--bg-card);
-    border-radius: 24px;
-    box-shadow: 0 0 25px rgba(0,0,0,0.5);
-    padding: 50px 30px;
-    max-width: 420px;
-    text-align: center;
-  }
-  .logo {
-    width: 100px;
-    height: 100px;
-    object-fit: contain;
-    border-radius: 50%;
-    margin-bottom: 20px;
-    border: 2px solid var(--main-color);
-  }
-  .title {
-    font-family: "Zen Dots", cursive;
-    color: var(--main-color);
-    font-size: 1.6rem;
-    margin-bottom: 8px;
-  }
-  .subtitle {
-    font-size: 1rem;
-    color: #bbb;
-    margin-bottom: 25px;
-  }
-  audio {
-    width: 100%;
-    outline: none;
-    border-radius: 12px;
-  }
-  footer {
-    font-size: 0.8rem;
-    color: #777;
-    margin-top: 25px;
-  }
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Dhamma FM Radio</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Noto Sans Myanmar", sans-serif;
+      background: url('myanmarflg.png') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+    .radio-box {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 30px 40px;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+      max-width: 320px;
+    }
+    h1 {
+      font-size: 24px;
+      margin-bottom: 10px;
+      color: #ffe066;
+    }
+    p {
+      font-size: 14px;
+      color: #ddd;
+      margin-top: 0;
+      margin-bottom: 20px;
+    }
+    button {
+      background: #2196f3;
+      border: none;
+      padding: 10px 25px;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #1976d2;
+    }
+    .song-title {
+      margin-top: 15px;
+      font-size: 16px;
+      color: #ffeb3b;
+    }
+  </style>
 </head>
 <body>
-  <div class="player">
-    <img src="logo.png" alt="Dhamma FM Radio Logo" class="logo">
-    <div class="title">📻 Dhamma FM Radio</div>
-    <div class="subtitle">ဓမ္မအသံ ရေဒီယို</div>
 
-    <audio controls autoplay>
-      <source src="http://upanna.on-air.fm/free/" type="audio/mpeg">
-      Browser သံထုတ်ပေးမှု မပံ့ပိုးပါ။
-    </audio>
-
-    <footer>© 2025 Dhamma FM Radio</footer>
+  <div class="radio-box">
+    <h1>📻 Dhamma FM Radio</h1>
+    <p>၂၄ နာရီ တရားပညာအသံ</p>
+    <button id="playBtn">▶ Play</button>
+    <div class="song-title" id="title">Stopped</div>
   </div>
+
+  <audio id="player" preload="auto" src="https://mmradio.netlify.app/"></audio>
+
+  <script>
+    const player = document.getElementById('player');
+    const playBtn = document.getElementById('playBtn');
+    const title = document.getElementById('title');
+    let isPlaying = false;
+
+    // Play/Pause ခလုတ်
+    playBtn.addEventListener('click', () => {
+      if (!isPlaying) {
+        player.play().then(() => {
+          isPlaying = true;
+          playBtn.textContent = "⏸ Stop";
+          title.textContent = "Now Playing: Dhamma FM Live";
+        }).catch(err => {
+          title.textContent = "🔇 Press Play to start sound";
+          console.warn("Playback blocked:", err);
+        });
+      } else {
+        player.pause();
+        isPlaying = false;
+        playBtn.textContent = "▶ Play";
+        title.textContent = "Stopped";
+      }
+    });
+
+    // အလိုအလျောက် autoplay မဖြစ်ပါက တစ်ချက်နှိပ်ရုံနဲ့ ဖွင့်နိုင်
+    player.addEventListener('error', (e) => {
+      console.error("Audio Error:", e);
+      title.textContent = "❌ Error connecting to stream";
+    });
+  </script>
+
 </body>
 </html>
