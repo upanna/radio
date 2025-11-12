@@ -19,29 +19,37 @@
 </head>
 <body>
 
-<audio id="audioPlayer" controls autoplay></audio>
+<audio id="audioPlayer" controls autoplay muted></audio>
 
 <script>
   const playlist = [
     "https://mmradio.netlify.app/songs/song1.mp3",
     "https://mmradio.netlify.app/songs/song2.mp3",
-    "https://mmradio.netlify.app/songs/song3.mp3"
+    "https://mmradio.netlify.app/songs/song3.mp3",
     "https://mmradio.netlify.app/songs/song4.mp3",
-    "https://mmradio.netlify.app/songs/song5.mp3"
-    // အောက်မှာ songs တွေ add လုပ်နိုင်ပါတယ်
+    "https://mmradio.netlify.app/songs/song5.mp3",
+    "https://mmradio.netlify.app/songs/song6.mp3",
+    "https://mmradio.netlify.app/songs/song7.mp3",
+    "https://mmradio.netlify.app/songs/song8.mp3",
+    "https://mmradio.netlify.app/songs/song9.mp3",
+    "https://mmradio.netlify.app/songs/song10.mp3"
   ];
 
   let current = 0;
   const audio = document.getElementById("audioPlayer");
 
-  // ပထမအချိန် play
+  // ပထမသီချင်း autoplay (muted bypass)
   audio.src = playlist[current];
   audio.play();
 
-  // song ပြီးသွားရင်
+  audio.onplay = () => {
+    audio.muted = false;
+  };
+
+  // သီချင်းပြီးရင် နောက်တစ်ပုဒ်သွားမယ်
   audio.addEventListener("ended", () => {
     current++;
-    if (current >= playlist.length) current = 0; // loop back to first song
+    if (current >= playlist.length) current = 0; // loop
     audio.src = playlist[current];
     audio.play();
   });
