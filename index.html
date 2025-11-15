@@ -2,126 +2,142 @@
 <html lang="my">
 <head>
 <meta charset="UTF-8">
-<title>Myanmar FM Radio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Myanmar FM Radio – Premium</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
+
+  /* GLOBAL BACKGROUND */
   body {
     margin: 0;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: radial-gradient(circle at top, #111, #000);
+    background: linear-gradient(135deg, #000, #0d0d0d, #1a1a1a);
     font-family: 'Poppins', sans-serif;
     color: white;
-    overflow: hidden;
+    overflow-x: hidden;
   }
 
-  /* Soft Gold Glow Background */
-  .gold-glow {
-    position: absolute;
-    width: 800px;
-    height: 800px;
-    background: radial-gradient(circle,
-      rgba(255,215,0,0.10),
-      rgba(255,150,0,0.06),
-      transparent
-    );
-    filter: blur(100px);
-    top: -10%;
-    animation: glow 9s ease-in-out infinite alternate;
+  /* GOLD PARTICLES BACKGROUND */
+  .particles {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image: radial-gradient(circle, rgba(255,215,0,0.25) 1px, transparent 1px);
+    background-size: 4px 4px;
+    opacity: 0.35;
+    animation: particlesMove 22s linear infinite;
+  }
+  @keyframes particlesMove {
+    from { background-position: 0 0; }
+    to { background-position: 1200px 1200px; }
   }
 
-  @keyframes glow {
-    0% { transform: scale(1); opacity: 0.7; }
-    100% { transform: scale(1.15); opacity: 1; }
-  }
-
-  /* Floating music icons */
-  .icon {
-    position: absolute;
-    font-size: 50px;
-    opacity: 0.20;
-    animation: float 6s infinite ease-in-out alternate;
-  }
-  @keyframes float {
-    0% { transform: translateY(0px); }
-    100% { transform: translateY(-40px); }
-  }
-  .note1 { left: 10%; top: 25%; animation-duration: 7s; }
-  .note2 { right: 12%; top: 65%; animation-duration: 5s; }
-  .guitar { left: 15%; bottom: 15%; font-size: 60px; animation-duration: 8s; }
-
-  /* Main Card */
-  .radio-card {
-    width: 500px;
-    padding: 35px 30px;
-    text-align: center;
+  /* MAIN CARD UI */
+  .container {
+    max-width: 520px;
+    margin: 40px auto;
+    padding: 25px;
+    background: rgba(255,255,255,0.06);
     border-radius: 20px;
-    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.17);
     backdrop-filter: blur(16px);
-    border: 1px solid rgba(255,255,255,0.15);
-    box-shadow: 0 0 40px rgba(255,200,0,0.20);
-    z-index: 10;
+    box-shadow: 0 0 35px rgba(255,215,0,0.25);
   }
 
-  /* Logo */
+  /* LOGO */
   .logo {
+    display: block;
     width: 130px;
+    margin: auto;
+    filter: drop-shadow(0 0 10px rgba(255,215,0,0.7));
+    margin-bottom: 12px;
+  }
+
+  /* TITLE */
+  h1 {
+    text-align: center;
+    font-size: 24px;
+    text-shadow: 0 0 12px rgba(255,215,0,0.7);
     margin-bottom: 8px;
-    filter: drop-shadow(0 0 8px rgba(255,215,0,0.6));
   }
 
-  /* Title */
-  h2 {
-    margin: 0;
-    margin-bottom: 10px;
-    font-weight: 600;
-    font-size: 26px;
-    text-shadow: 0 0 15px rgba(255,215,0,0.6);
-  }
-
-  /* Address */
+  /* ADDRESS */
   .address {
+    text-align: center;
     font-size: 13px;
-    opacity: 0.85;
-    margin-bottom: 18px;
+    opacity: 0.9;
     line-height: 1.5em;
+    margin-bottom: 20px;
   }
 
-  /* Now Playing */
-  .now-playing {
-    margin-top: 10px;
-    margin-bottom: 8px;
+  /* EQUALIZER */
+  .equalizer {
+    display: flex;
+    justify-content: center;
+    height: 40px;
+    gap: 4px;
+    margin-bottom: 10px;
+  }
+  .equalizer div {
+    width: 6px;
+    background: gold;
+    border-radius: 3px;
+    animation: eq 1s infinite ease-in-out;
+  }
+  @keyframes eq {
+    0% { height: 7px; }
+    50% { height: 30px; }
+    100% { height: 7px; }
+  }
+  .equalizer div:nth-child(1){animation-delay:0s;}
+  .equalizer div:nth-child(2){animation-delay:.12s;}
+  .equalizer div:nth-child(3){animation-delay:.24s;}
+  .equalizer div:nth-child(4){animation-delay:.36s;}
+  .equalizer div:nth-child(5){animation-delay:.48s;}
+
+  /* NOW PLAYING TEXT */
+  #nowPlaying {
+    text-align: center;
     font-size: 15px;
-    color: #ffdd77;
-    text-shadow: 0 0 6px rgba(255,200,0,0.5);
+    color: gold;
+    text-shadow: 0 0 7px rgba(255,215,0,0.6);
+    margin-bottom: 10px;
   }
 
-  /* Player */
+  /* AUDIO PLAYER */
   audio {
     width: 100%;
-    filter: drop-shadow(0 0 10px rgba(255,215,0,0.4));
+    margin-bottom: 15px;
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    font-size: 12px;
+    opacity: 0.8;
+    margin-top: 22px;
+    padding-bottom: 15px;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 480px){
+    .container { margin: 15px; padding: 18px; }
+    .logo { width: 100px; }
+    h1 { font-size: 20px; }
   }
 
 </style>
 </head>
 <body>
 
-<div class="gold-glow"></div>
+<div class="particles"></div>
 
-<!-- Floating music icons -->
-<div class="icon note1">🎵</div>
-<div class="icon note2">🎶</div>
-<div class="icon guitar">🎸</div>
-
-<div class="radio-card">
+<div class="container">
 
   <img src="myanmarflg.png" class="logo">
 
-  <h2>🎧 Myanmar FM Radio</h2>
+  <h1>🎧 Myanmar FM Radio</h1>
 
   <div class="address">
     မြန်မာ့ရေဒီယို အသံလွှင့်ဌာန<br>
@@ -129,13 +145,26 @@
     ပဲခူးတိုင်းဒေသကြီး
   </div>
 
-  <div class="now-playing" id="nowPlaying">Now Playing: Song 1</div>
+  <!-- Equalizer -->
+  <div class="equalizer">
+    <div></div><div></div><div></div><div></div><div></div>
+  </div>
 
-  <audio id="audioPlayer" controls autoplay muted></audio>
+  <!-- Now Playing -->
+  <div id="nowPlaying">Now Playing: Song 1</div>
+
+  <!-- Player -->
+  <audio id="player" controls autoplay muted></audio>
 
 </div>
 
+<footer>
+  © 2025 Myanmar Radio Department – All Rights Reserved
+</footer>
+
 <script>
+
+  /* ----------- SINGLE PLAYLIST (NO SWITCHING) ------------ */
   const playlist = [
     "https://mmradio.netlify.app/songs/song1.mp3",
     "https://mmradio.netlify.app/songs/song2.mp3",
@@ -149,32 +178,30 @@
     "https://mmradio.netlify.app/songs/song10.mp3"
   ];
 
-  let current = 0;
-  const audio = document.getElementById("audioPlayer");
-  const nowPlaying = document.getElementById("nowPlaying");
+  let index = 0;
 
-  function updateTitle() {
-    nowPlaying.textContent = "Now Playing: Song " + (current + 1);
+  const player = document.getElementById("player");
+  const np = document.getElementById("nowPlaying");
+
+  /* --------- AUTO PLAY FUNCTION ---------------- */
+  function playSong() {
+    player.src = playlist[index];
+    player.play().catch(()=>{});
+    np.textContent = `Now Playing: Song ${index + 1}`;
+    setTimeout(() => player.muted = false, 800); // mobile autoplay bypass
   }
 
-  audio.src = playlist[current];
-  audio.play();
-
-  audio.onplay = () => {
-    audio.muted = false;
-  };
-
-  updateTitle();
-
-  audio.addEventListener("ended", () => {
-    current++;
-    if (current >= playlist.length) current = 0;
-    audio.src = playlist[current];
-    audio.play();
-    updateTitle();
+  /* --------- AUTO NEXT ------------------------- */
+  player.addEventListener("ended", ()=> {
+    index++;
+    if(index >= playlist.length) index = 0; // LOOP auto restart
+    playSong();
   });
+
+  /* --------- START NOW ------------------------- */
+  playSong();
+
 </script>
 
 </body>
 </html>
-
