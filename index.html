@@ -3,130 +3,182 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Myanmar FM Radio – Premium</title>
+<title>Myanmar FM Radio</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
+/* ---------------- GLOBAL ---------------- */
+body {
+  margin:0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #000, #0d0d0d, #1a1a1a);
+  color: white;
+  overflow-x: hidden;
+}
 
-  /* GLOBAL BACKGROUND */
-  body {
-    margin: 0;
-    background: linear-gradient(135deg, #000, #0d0d0d, #1a1a1a);
-    font-family: 'Poppins', sans-serif;
-    color: white;
-    overflow-x: hidden;
-  }
+/* GOLD PARTICLES */
+.particles {
+  position: fixed;
+  inset:0;
+  pointer-events:none;
+  background-image: radial-gradient(circle, rgba(255,215,0,0.25) 1px, transparent 1px);
+  background-size: 4px 4px;
+  opacity: 0.35;
+  animation: particlesMove 22s linear infinite;
+}
+@keyframes particlesMove {
+  0% {background-position:0 0;}
+  100%{background-position:1200px 1200px;}
+}
 
-  /* GOLD PARTICLES BACKGROUND */
-  .particles {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    background-image: radial-gradient(circle, rgba(255,215,0,0.25) 1px, transparent 1px);
-    background-size: 4px 4px;
-    opacity: 0.35;
-    animation: particlesMove 22s linear infinite;
-  }
-  @keyframes particlesMove {
-    from { background-position: 0 0; }
-    to { background-position: 1200px 1200px; }
-  }
+/* CONTAINER CARD */
+.container {
+  max-width:520px;
+  margin:50px auto;
+  padding:25px;
+  background: rgba(255,255,255,0.06);
+  border-radius:20px;
+  border:1px solid rgba(255,255,255,0.17);
+  backdrop-filter: blur(16px);
+  box-shadow:0 0 35px rgba(255,215,0,0.25);
+  position: relative;
+}
 
-  /* MAIN CARD UI */
-  .container {
-    max-width: 520px;
-    margin: 40px auto;
-    padding: 25px;
-    background: rgba(255,255,255,0.06);
-    border-radius: 20px;
-    border: 1px solid rgba(255,255,255,0.17);
-    backdrop-filter: blur(16px);
-    box-shadow: 0 0 35px rgba(255,215,0,0.25);
-  }
+/* LOGO */
+.logo{
+  display:block;
+  width:130px;
+  margin:auto 0 12px;
+  filter: drop-shadow(0 0 12px rgba(255,215,0,0.7));
+}
 
-  /* LOGO */
-  .logo {
-    display: block;
-    width: 130px;
-    margin: auto;
-    filter: drop-shadow(0 0 10px rgba(255,215,0,0.7));
-    margin-bottom: 12px;
-  }
+/* TITLE */
+h1{
+  text-align:center;
+  font-size:24px;
+  text-shadow:0 0 12px rgba(255,215,0,0.7);
+  margin-bottom:8px;
+}
 
-  /* TITLE */
-  h1 {
-    text-align: center;
-    font-size: 24px;
-    text-shadow: 0 0 12px rgba(255,215,0,0.7);
-    margin-bottom: 8px;
-  }
+/* ADDRESS */
+.address{
+  text-align:center;
+  font-size:13px;
+  opacity:0.9;
+  line-height:1.5em;
+  margin-bottom:20px;
+}
 
-  /* ADDRESS */
-  .address {
-    text-align: center;
-    font-size: 13px;
-    opacity: 0.9;
-    line-height: 1.5em;
-    margin-bottom: 20px;
-  }
+/* EQUALIZER */
+.equalizer{
+  display:flex;
+  justify-content:center;
+  height:40px;
+  gap:4px;
+  margin-bottom:10px;
+}
+.equalizer div{
+  width:6px;
+  background: gold;
+  border-radius:3px;
+  animation:eq 1s infinite ease-in-out;
+}
+@keyframes eq{
+  0% {height:7px;}
+  50%{height:30px;}
+  100%{height:7px;}
+}
+.equalizer div:nth-child(1){animation-delay:0s;}
+.equalizer div:nth-child(2){animation-delay:.12s;}
+.equalizer div:nth-child(3){animation-delay:.24s;}
+.equalizer div:nth-child(4){animation-delay:.36s;}
+.equalizer div:nth-child(5){animation-delay:.48s;}
 
-  /* EQUALIZER */
-  .equalizer {
-    display: flex;
-    justify-content: center;
-    height: 40px;
-    gap: 4px;
-    margin-bottom: 10px;
-  }
-  .equalizer div {
-    width: 6px;
-    background: gold;
-    border-radius: 3px;
-    animation: eq 1s infinite ease-in-out;
-  }
-  @keyframes eq {
-    0% { height: 7px; }
-    50% { height: 30px; }
-    100% { height: 7px; }
-  }
-  .equalizer div:nth-child(1){animation-delay:0s;}
-  .equalizer div:nth-child(2){animation-delay:.12s;}
-  .equalizer div:nth-child(3){animation-delay:.24s;}
-  .equalizer div:nth-child(4){animation-delay:.36s;}
-  .equalizer div:nth-child(5){animation-delay:.48s;}
+/* NOW PLAYING TEXT */
+#nowPlaying{
+  text-align:center;
+  font-size:15px;
+  color:gold;
+  text-shadow:0 0 7px rgba(255,215,0,0.6);
+  margin-bottom:10px;
+}
 
-  /* NOW PLAYING TEXT */
-  #nowPlaying {
-    text-align: center;
-    font-size: 15px;
-    color: gold;
-    text-shadow: 0 0 7px rgba(255,215,0,0.6);
-    margin-bottom: 10px;
-  }
+/* AUDIO PLAYER */
+audio{
+  width:100%;
+  margin-bottom:15px;
+  border-radius:10px;
+}
 
-  /* AUDIO PLAYER */
-  audio {
-    width: 100%;
-    margin-bottom: 15px;
-  }
+/* NEWS TICKER */
+.news-bar{
+  background: rgba(255,215,0,0.15);
+  padding:6px 12px;
+  overflow:hidden;
+  border-radius:12px;
+  margin-bottom:15px;
+}
+.news-text{
+  display:inline-block;
+  white-space:nowrap;
+  animation: ticker 20s linear infinite;
+  font-size:13px;
+}
+@keyframes ticker{
+  0% {transform:translateX(100%);}
+  100%{transform:translateX(-100%);}
+}
 
-  /* FOOTER */
-  footer {
-    text-align: center;
-    font-size: 12px;
-    opacity: 0.8;
-    margin-top: 22px;
-    padding-bottom: 15px;
-  }
+/* DJ ANNOUNCER TEXT */
+#djText{
+  text-align:center;
+  font-size:14px;
+  color:#FFD700;
+  margin-bottom:12px;
+  min-height:20px;
+  text-shadow:0 0 8px rgba(255,215,0,0.6);
+}
 
-  /* RESPONSIVE */
-  @media (max-width: 480px){
-    .container { margin: 15px; padding: 18px; }
-    .logo { width: 100px; }
-    h1 { font-size: 20px; }
-  }
+/* NEON FLAG WAVE */
+.flag-container{
+  position:absolute;
+  top:-10px;
+  left:-20px;
+  width:calc(100% + 40px);
+  height:60px;
+  overflow:hidden;
+  pointer-events:none;
+}
+.flag{
+  width:100%;
+  height:100%;
+  background: linear-gradient(90deg, red 33%, yellow 33% 66%, green 66%);
+  animation: flagWave 2s infinite ease-in-out alternate;
+  mix-blend-mode: screen;
+  opacity:0.7;
+}
+@keyframes flagWave{
+  0% {transform: skewX(0deg);}
+  50%{transform: skewX(4deg);}
+  100%{transform: skewX(0deg);}
+}
 
+/* FOOTER */
+footer{
+  text-align:center;
+  font-size:12px;
+  opacity:0.8;
+  margin-top:22px;
+  padding-bottom:15px;
+}
+
+/* RESPONSIVE */
+@media(max-width:480px){
+  .container{margin:15px; padding:18px;}
+  .logo{width:100px;}
+  h1{font-size:20px;}
+}
 </style>
 </head>
 <body>
@@ -135,8 +187,9 @@
 
 <div class="container">
 
-  <img src="myanmarflg.png" class="logo">
+  <div class="flag-container"><div class="flag"></div></div>
 
+  <img src="logo.png" class="logo">
   <h1>🎧 Myanmar FM Radio</h1>
 
   <div class="address">
@@ -145,15 +198,16 @@
     ပဲခူးတိုင်းဒေသကြီး
   </div>
 
-  <!-- Equalizer -->
   <div class="equalizer">
     <div></div><div></div><div></div><div></div><div></div>
   </div>
 
-  <!-- Now Playing -->
   <div id="nowPlaying">Now Playing: Song 1</div>
 
-  <!-- Player -->
+  <div class="news-bar"><span class="news-text" id="newsText">ယနေ့ မိုးအခြေအနေများကို သတိပြုပါ… | အမျိုးသားစာပေဆုရ အခမ်းအနား… | နေ့စဉ်သတင်းများ …</span></div>
+
+  <div id="djText"></div>
+
   <audio id="player" controls autoplay muted></audio>
 
 </div>
@@ -163,43 +217,63 @@
 </footer>
 
 <script>
+/* ------------------- PLAYLIST ------------------- */
+const playlist=[
+  "https://mmradio.netlify.app/songs/song1.mp3",
+  "https://mmradio.netlify.app/songs/song2.mp3",
+  "https://mmradio.netlify.app/songs/song3.mp3",
+  "https://mmradio.netlify.app/songs/song4.mp3",
+  "https://mmradio.netlify.app/songs/song5.mp3",
+  "https://mmradio.netlify.app/songs/song6.mp3",
+  "https://mmradio.netlify.app/songs/song7.mp3",
+  "https://mmradio.netlify.app/songs/song8.mp3",
+  "https://mmradio.netlify.app/songs/song9.mp3",
+  "https://mmradio.netlify.app/songs/song10.mp3"
+];
+let index=0;
+const player=document.getElementById("player");
+const nowPlaying=document.getElementById("nowPlaying");
 
-  /* ----------- SINGLE PLAYLIST (NO SWITCHING) ------------ */
-  const playlist = [
-    "https://mmradio.netlify.app/songs/song1.mp3",
-    "https://mmradio.netlify.app/songs/song2.mp3",
-    "https://mmradio.netlify.app/songs/song3.mp3",
-    "https://mmradio.netlify.app/songs/song4.mp3",
-    "https://mmradio.netlify.app/songs/song5.mp3",
-    "https://mmradio.netlify.app/songs/song6.mp3",
-    "https://mmradio.netlify.app/songs/song7.mp3",
-    "https://mmradio.netlify.app/songs/song8.mp3",
-    "https://mmradio.netlify.app/songs/song9.mp3",
-    "https://mmradio.netlify.app/songs/song10.mp3"
-  ];
+/* PLAY SONG FUNCTION */
+function playSong(){
+  player.src=playlist[index];
+  player.play().catch(()=>{});
+  nowPlaying.textContent=`Now Playing: Song ${index+1}`;
+  setTimeout(()=>player.muted=false,800); // mobile autoplay fix
+}
 
-  let index = 0;
-
-  const player = document.getElementById("player");
-  const np = document.getElementById("nowPlaying");
-
-  /* --------- AUTO PLAY FUNCTION ---------------- */
-  function playSong() {
-    player.src = playlist[index];
-    player.play().catch(()=>{});
-    np.textContent = `Now Playing: Song ${index + 1}`;
-    setTimeout(() => player.muted = false, 800); // mobile autoplay bypass
-  }
-
-  /* --------- AUTO NEXT ------------------------- */
-  player.addEventListener("ended", ()=> {
-    index++;
-    if(index >= playlist.length) index = 0; // LOOP auto restart
-    playSong();
-  });
-
-  /* --------- START NOW ------------------------- */
+/* NEXT SONG LOOP */
+player.addEventListener("ended", ()=>{
+  index++;
+  if(index>=playlist.length) index=0;
   playSong();
+});
+
+/* START */
+playSong();
+
+/* ------------------- DJ ANNOUNCER TEXT ------------------- */
+const djTextEl=document.getElementById("djText");
+const djMessage="မြန်မာ့ရေဒီယိုမှာ ဗဟုသုတရေးရာအဖြာဖြာများနဲ့ ကြော်ငြာများထည့်သွင်းနိုင်ပါသည်…";
+let djIndex=0;
+function typeDJText(){
+  djTextEl.textContent=djMessage.slice(0,djIndex);
+  djIndex++;
+  if(djIndex>djMessage.length){djIndex=0;}
+  setTimeout(typeDJText,100);
+}
+typeDJText();
+
+/* ------------------- NEWS TICKER LOOP ------------------- */
+const newsTextEl=document.getElementById("newsText");
+let newsOffset=0;
+function scrollNews(){
+  newsOffset+=1;
+  if(newsOffset>newsTextEl.scrollWidth) newsOffset=-window.innerWidth;
+  newsTextEl.style.transform=`translateX(${-newsOffset}px)`;
+  requestAnimationFrame(scrollNews);
+}
+scrollNews();
 
 </script>
 
