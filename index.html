@@ -1,282 +1,227 @@
 <!DOCTYPE html>
 <html lang="my">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Myanmar FM Radio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Shwehinnthar FM Radio</title>
 
-<style>
-/* ---------------- GLOBAL ---------------- */
-body {
-  margin:0;
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #000, #0d0d0d, #1a1a1a);
-  color: white;
-  overflow-x: hidden;
-}
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="fmlogo.png">
 
-/* GOLD PARTICLES */
-.particles {
-  position: fixed;
-  inset:0;
-  pointer-events:none;
-  background-image: radial-gradient(circle, rgba(255,215,0,0.25) 1px, transparent 1px);
-  background-size: 4px 4px;
-  opacity: 0.35;
-  animation: particlesMove 22s linear infinite;
-}
-@keyframes particlesMove {
-  0% {background-position:0 0;}
-  100%{background-position:1200px 1200px;}
-}
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Myanmar:wght@300;400;500;700&display=swap" rel="stylesheet">
 
-/* CONTAINER CARD */
-.container {
-  max-width:520px;
-  margin:50px auto;
-  padding:25px;
-  background: rgba(255,255,255,0.06);
-  border-radius:20px;
-  border:1px solid rgba(255,255,255,0.17);
-  backdrop-filter: blur(16px);
-  box-shadow:0 0 35px rgba(255,215,0,0.25);
-  position: relative;
-}
+    <style>
+        :root {
+            --main-gold: #ffcc33;
+            --card-bg: rgba(255,255,255,0.08);
+            --header-bg: rgba(255,255,255,0.05);
+        }
 
-/* LOGO */
-.logo{
-  display:block;
-  width:130px;
-  margin:auto 0 12px;
-  filter: drop-shadow(0 0 12px rgba(255,215,0,0.7));
-}
+        * { box-sizing: border-box; }
 
-/* TITLE */
-h1{
-  text-align:center;
-  font-size:24px;
-  text-shadow:0 0 12px rgba(255,215,0,0.7);
-  margin-bottom:8px;
-}
+        body {
+            margin: 0;
+            font-family: "Noto Sans Myanmar", sans-serif;
+            background: radial-gradient(circle at top, #0f172a, #1e293b, #0f172a);
+            color: white;
+        }
 
-/* ADDRESS */
-.address{
-  text-align:center;
-  font-size:13px;
-  opacity:0.9;
-  line-height:1.5em;
-  margin-bottom:20px;
-}
+        /* ---------------- HEADER ---------------- */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 60px 20px;
+            background: var(--header-bg);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.45);
+        }
 
-/* EQUALIZER */
-.equalizer{
-  display:flex;
-  justify-content:center;
-  height:40px;
-  gap:4px;
-  margin-bottom:10px;
-}
-.equalizer div{
-  width:6px;
-  background: gold;
-  border-radius:3px;
-  animation:eq 1s infinite ease-in-out;
-}
-@keyframes eq{
-  0% {height:7px;}
-  50%{height:30px;}
-  100%{height:7px;}
-}
-.equalizer div:nth-child(1){animation-delay:0s;}
-.equalizer div:nth-child(2){animation-delay:.12s;}
-.equalizer div:nth-child(3){animation-delay:.24s;}
-.equalizer div:nth-child(4){animation-delay:.36s;}
-.equalizer div:nth-child(5){animation-delay:.48s;}
+        .logo {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--main-gold);
+            box-shadow: 0 0 20px rgba(255,204,51,0.5);
+            margin-bottom: 18px;
+            animation: fadeIn 1.2s;
+        }
 
-/* NOW PLAYING TEXT */
-#nowPlaying{
-  text-align:center;
-  font-size:15px;
-  color:gold;
-  text-shadow:0 0 7px rgba(255,215,0,0.6);
-  margin-bottom:10px;
-}
+        header h1 {
+            font-size: 40px;
+            margin: 0;
+            color: var(--main-gold);
+            text-shadow: 0 0 10px rgba(255,204,51,0.5);
+            letter-spacing: 1px;
+            animation: fadeIn 1.6s;
+        }
 
-/* AUDIO PLAYER */
-audio{
-  width:100%;
-  margin-bottom:15px;
-  border-radius:10px;
-}
+        header p {
+            margin-top: 8px;
+            opacity: 0.8;
+            font-size: 17px;
+            animation: fadeIn 2s;
+        }
 
-/* NEWS TICKER */
-.news-bar{
-  background: rgba(255,215,0,0.15);
-  padding:6px 12px;
-  overflow:hidden;
-  border-radius:12px;
-  margin-bottom:15px;
-}
-.news-text{
-  display:inline-block;
-  white-space:nowrap;
-  animation: ticker 20s linear infinite;
-  font-size:13px;
-}
-@keyframes ticker{
-  0% {transform:translateX(100%);}
-  100%{transform:translateX(-100%);}
-}
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
-/* DJ ANNOUNCER TEXT */
-#djText{
-  text-align:center;
-  font-size:14px;
-  color:#FFD700;
-  margin-bottom:12px;
-  min-height:20px;
-  text-shadow:0 0 8px rgba(255,215,0,0.6);
-}
+        /* ---------------- CONTENT ---------------- */
+        .content {
+            max-width: 1050px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
 
-/* NEON FLAG WAVE */
-.flag-container{
-  position:absolute;
-  top:-10px;
-  left:-20px;
-  width:calc(100% + 40px);
-  height:60px;
-  overflow:hidden;
-  pointer-events:none;
-}
-.flag{
-  width:100%;
-  height:100%;
-  background: linear-gradient(90deg, red 33%, yellow 33% 66%, green 66%);
-  animation: flagWave 2s infinite ease-in-out alternate;
-  mix-blend-mode: screen;
-  opacity:0.7;
-}
-@keyframes flagWave{
-  0% {transform: skewX(0deg);}
-  50%{transform: skewX(4deg);}
-  100%{transform: skewX(0deg);}
-}
+        .section {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 50px;
+            border: 1px solid rgba(255,255,255,0.12);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 0 30px rgba(0,0,0,0.35);
+            transition: 0.3s;
+        }
 
-/* FOOTER */
-footer{
-  text-align:center;
-  font-size:12px;
-  opacity:0.8;
-  margin-top:22px;
-  padding-bottom:15px;
-}
+        .section:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 0 40px rgba(0,0,0,0.45);
+        }
 
-/* RESPONSIVE */
-@media(max-width:480px){
-  .container{margin:15px; padding:18px;}
-  .logo{width:100px;}
-  h1{font-size:20px;}
-}
-</style>
+        h2 {
+            margin-top: 0;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            color: var(--main-gold);
+            font-size: 25px;
+            text-shadow: 0 0 6px rgba(255,204,51,0.4);
+        }
+
+        /* ---------------- INFO BOX ---------------- */
+        .info-box {
+            background: rgba(255,255,255,0.12);
+            padding: 16px;
+            border-radius: 12px;
+            margin-top: 12px;
+            border: 1px solid rgba(255,255,255,0.15);
+            box-shadow: 0 0 15px rgba(0,0,0,0.35);
+            transition: 0.3s;
+        }
+
+        .info-box:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 22px rgba(255,255,255,0.25);
+        }
+
+        .info-box strong {
+            color: var(--main-gold);
+        }
+
+        audio {
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        /* ---------------- FOOTER ---------------- */
+        footer {
+            text-align: center;
+            padding: 25px;
+            opacity: 0.6;
+            font-size: 14px;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 30px; }
+            .logo { width: 90px; height: 90px; }
+        }
+    </style>
 </head>
 <body>
 
-<div class="particles"></div>
+<header>
+    <img src="fmlogo.png" alt="Shwehinnthar Logo" class="logo">
+    <h1>Shwehinnthar FM Radio</h1>
+    <p>Shwehinnthar • 24/7 Livestream • FM Online Radio</p>
+</header>
 
-<div class="container">
+<div class="content">
 
-  <div class="flag-container"><div class="flag"></div></div>
+    <!-- LIVE PLAYER -->
+    <div class="section">
+        <h2>🎧 LIVE Radio Player</h2>
+        <p>Shwehinnthar FM Radio ကို တိုက်ရိုက်နားဆင်နိုင်ပါသည်။</p>
 
-  <img src="myanmarflg.png" class="logo">
-  <h1>🎧 Myanmar FM Radio</h1>
+        <audio controls autoplay>
+            <source src="https://stream.zeno.fm/nv7i41tz04mtv" type="audio/mpeg">
+            သင်အသုံးပြုသော browser သည် streaming playback ကို မထောက်ပံ့နိုင်ပါ။
+        </audio>
+    </div>
 
-  <div class="address">
-    မြန်မာ့ရေဒီယို အသံလွှင့်ဌာန<br>
-    ညောင်လေးပင်မြို့၊ ညောင်လေးပင်ခရိုင်<br>
-    ပဲခူးတိုင်းဒေသကြီး
-  </div>
+    <!-- LIVESTREAM KEYS -->
+    <div class="section">
+        <h2>🔐 Livestream Keys (DJ / Host)</h2>
 
-  <div class="equalizer">
-    <div></div><div></div><div></div><div></div><div></div>
-  </div>
+        <div class="info-box">
+            <strong>Server URL:</strong><br> rtmp://stream-server.com/live
+        </div>
 
-  <div id="nowPlaying">Now Playing: Song 1</div>
+        <div class="info-box">
+            <strong>Main Stream Key:</strong><br> shwehinnthar_stream_2390JKLS99
+        </div>
 
-  <div class="news-bar"><span class="news-text" id="newsText">ယနေ့ မိုးအခြေအနေများကို သတိပြုပါ… | အမျိုးသားစာပေဆုရ အခမ်းအနား… | နေ့စဉ်သတင်းများ …</span></div>
+        <div class="info-box">
+            <strong>Backup Stream Key:</strong><br> shwehinnthar_stream_A88HHD33
+        </div>
 
-  <div id="djText"></div>
+        <div class="info-box">
+            <strong>Icecast/Shoutcast Mount:</strong><br> /shwehinnthar
+        </div>
 
-  <audio id="player" controls autoplay muted></audio>
+        <div class="info-box">
+            <strong>Direct FM Stream URL:</strong><br> http://www.upanna.com/stream/
+        </div>
+
+        <h3 style="margin-top: 25px; color: var(--main-gold);">📌 OBS / BUTT / RadioCaster Setting</h3>
+        <ul>
+            <li>Bitrate – 128 kbps</li>
+            <li>Sample Rate – 44100 Hz</li>
+            <li>Codec – AAC / MP3</li>
+        </ul>
+    </div>
+
+    <!-- PROGRAM LIST -->
+    <div class="section">
+        <h2>🎵 Daily Program List</h2>
+        <ul>
+            <li>🌙 Midnight Calm – 12 AM to 6 AM</li>
+            <li>🌤 Morning Fresh – 6 AM to 12 PM</li>
+            <li>🌅 Daylight Flow – 12 PM to 6 PM</li>
+            <li>🌃 Evening Warm – 6 PM to 12 AM</li>
+        </ul>
+    </div>
+
+    <!-- CONTACT -->
+    <div class="section">
+        <h2>📞 Contact</h2>
+        <p>Facebook Page – <strong>Shwehinnthar Radio</strong></p>
+        <p>Email – info@shwehinnthar.fm</p>
+        <p>Phone – 09-33913388</p>
+    </div>
 
 </div>
 
 <footer>
-  © 2025 Myanmar Radio Department – All Rights Reserved
+    © 2025 Shwehinnthar FM Radio — All Rights Reserved.
 </footer>
-
-<script>
-/* ------------------- PLAYLIST ------------------- */
-const playlist=[
-  "https://mmradio.netlify.app/songs/song1.mp3",
-  "https://mmradio.netlify.app/songs/song2.mp3",
-  "https://mmradio.netlify.app/songs/song3.mp3",
-  "https://mmradio.netlify.app/songs/song4.mp3",
-  "https://mmradio.netlify.app/songs/song5.mp3",
-  "https://mmradio.netlify.app/songs/song6.mp3",
-  "https://mmradio.netlify.app/songs/song7.mp3",
-  "https://mmradio.netlify.app/songs/song8.mp3",
-  "https://mmradio.netlify.app/songs/song9.mp3",
-  "https://mmradio.netlify.app/songs/song10.mp3"
-];
-let index=0;
-const player=document.getElementById("player");
-const nowPlaying=document.getElementById("nowPlaying");
-
-/* PLAY SONG FUNCTION */
-function playSong(){
-  player.src=playlist[index];
-  player.play().catch(()=>{});
-  nowPlaying.textContent=`Now Playing: Song ${index+1}`;
-  setTimeout(()=>player.muted=false,800); // mobile autoplay fix
-}
-
-/* NEXT SONG LOOP */
-player.addEventListener("ended", ()=>{
-  index++;
-  if(index>=playlist.length) index=0;
-  playSong();
-});
-
-/* START */
-playSong();
-
-/* ------------------- DJ ANNOUNCER TEXT ------------------- */
-const djTextEl=document.getElementById("djText");
-const djMessage="မြန်မာ့ရေဒီယိုမှာ ဗဟုသုတရေးရာအဖြာဖြာများနဲ့ ကြော်ငြာများထည့်သွင်းနိုင်ပါသည်…";
-let djIndex=0;
-function typeDJText(){
-  djTextEl.textContent=djMessage.slice(0,djIndex);
-  djIndex++;
-  if(djIndex>djMessage.length){djIndex=0;}
-  setTimeout(typeDJText,100);
-}
-typeDJText();
-
-/* ------------------- NEWS TICKER LOOP ------------------- */
-const newsTextEl=document.getElementById("newsText");
-let newsOffset=0;
-function scrollNews(){
-  newsOffset+=1;
-  if(newsOffset>newsTextEl.scrollWidth) newsOffset=-window.innerWidth;
-  newsTextEl.style.transform=`translateX(${-newsOffset}px)`;
-  requestAnimationFrame(scrollNews);
-}
-scrollNews();
-
-</script>
 
 </body>
 </html>
-
